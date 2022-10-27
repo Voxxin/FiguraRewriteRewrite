@@ -4,7 +4,8 @@ import com.mojang.brigadier.StringReader;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.arguments.blocks.BlockStateArgument;
 import net.minecraft.commands.arguments.item.ItemArgument;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -77,7 +78,7 @@ public class LuaUtils {
             return wrapper.itemStack;
         else if (item instanceof String string) {
             try {
-                return ItemArgument.item(new CommandBuildContext(RegistryAccess.BUILTIN.get())).parse(new StringReader(string)).createItemStack(1, false);
+                return ItemArgument.item(new CommandBuildContext(BuiltinRegistries.createAccess(), FeatureFlags.REGISTRY.allFlags())).parse(new StringReader(string)).createItemStack(1, false);
             } catch (Exception e) {
                 throw new LuaError("Could not parse item stack from string: " + string);
             }
@@ -93,7 +94,7 @@ public class LuaUtils {
             return wrapper.blockState;
         else if (block instanceof String string) {
             try {
-                return BlockStateArgument.block(new CommandBuildContext(RegistryAccess.BUILTIN.get())).parse(new StringReader(string)).getState();
+                return BlockStateArgument.block(new CommandBuildContext(BuiltinRegistries.createAccess(), FeatureFlags.REGISTRY.allFlags())).parse(new StringReader(string)).getState();
             } catch (Exception e) {
                 throw new LuaError("Could not parse block state from string: " + string);
             }

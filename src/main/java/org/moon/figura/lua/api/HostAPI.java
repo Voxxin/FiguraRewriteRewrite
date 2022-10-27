@@ -151,7 +151,7 @@ public class HostAPI {
     public void sendChatMessage(@LuaNotNil String message) {
         if (!isHost() || !Config.CHAT_MESSAGES.asBool()) return;
         LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null) player.chatSigned(message, null);
+        if (player != null) player.connection.sendChat(message);
     }
 
     @LuaWhitelist
@@ -165,7 +165,7 @@ public class HostAPI {
     public void sendChatCommand(@LuaNotNil String command) {
         if (!isHost() || !Config.CHAT_MESSAGES.asBool()) return;
         LocalPlayer player = Minecraft.getInstance().player;
-        if (player != null) player.commandSigned(command.startsWith("/") ? command.substring(1) : command, null);
+        if (player != null) player.connection.sendCommand(command.startsWith("/") ? command.substring(1) : command);
     }
 
     @LuaWhitelist

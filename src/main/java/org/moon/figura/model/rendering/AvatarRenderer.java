@@ -2,7 +2,6 @@ package org.moon.figura.model.rendering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import com.mojang.math.Matrix3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,14 +12,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Matrix3f;
 import org.moon.figura.avatar.Avatar;
+import org.moon.figura.math.matrix.FiguraMat3;
+import org.moon.figura.math.matrix.FiguraMat4;
 import org.moon.figura.model.FiguraModelPart;
 import org.moon.figura.model.ParentType;
 import org.moon.figura.model.VanillaModelData;
 import org.moon.figura.model.rendering.texture.FiguraTexture;
 import org.moon.figura.model.rendering.texture.FiguraTextureSet;
-import org.moon.figura.math.matrix.FiguraMat3;
-import org.moon.figura.math.matrix.FiguraMat4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,7 +130,7 @@ public abstract class AvatarRenderer {
     public static FiguraMat4 worldToViewMatrix() {
         Minecraft client = Minecraft.getInstance();
         Camera camera = client.gameRenderer.getMainCamera();
-        Matrix3f cameraMat3f = new Matrix3f(camera.rotation());
+        Matrix3f cameraMat3f = new Matrix3f().rotation(camera.rotation());
         cameraMat3f.invert();
         FiguraMat4 result = FiguraMat4.of();
         Vec3 cameraPos = camera.getPosition().scale(-1);

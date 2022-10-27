@@ -2,7 +2,7 @@ package org.moon.figura.mixin.render.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.ParrotModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -57,8 +57,8 @@ public abstract class ParrotOnShoulderLayerMixin<T extends Player> extends Rende
                 stack.translate(0d, 24d, 0d);
                 float s = 16f;
                 stack.scale(s, s, s);
-                stack.mulPose(Vector3f.XP.rotationDegrees(180f));
-                stack.mulPose(Vector3f.YP.rotationDegrees(180f));
+                stack.mulPose(Axis.XP.rotationDegrees(180f));
+                stack.mulPose(Axis.YP.rotationDegrees(180f));
                 this.model.renderOnShoulder(stack, vertexConsumer, light, OverlayTexture.NO_OVERLAY, limbAngle, limbDistance, headYaw, headPitch, player.tickCount);
             })) {
                 ci.cancel();

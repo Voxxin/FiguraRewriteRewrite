@@ -130,12 +130,12 @@ public class ContextMenu extends AbstractContainerElement {
 
         int heigth = y + 1;
         for (AbstractWidget button : entries) {
-            button.x = x + 1;
-            button.y = heigth;
+            button.setX(x + 1);
+            button.setY(heigth);
             heigth += button.getHeight();
 
             if (button instanceof TabButton tab)
-                tab.context.setPos(tab.x + tab.getWidth(), tab.y - 1);
+                tab.context.setPos(tab.getX() + tab.getWidth(), tab.getY() - 1);
         }
     }
 
@@ -159,14 +159,14 @@ public class ContextMenu extends AbstractContainerElement {
             Font font = Minecraft.getInstance().font;
             font.drawShadow(
                     stack, getMessage(),
-                    this.x + 3, this.y + this.height / 2 - font.lineHeight / 2,
+                    this.getX() + 3, this.getY() + this.height / 2 - font.lineHeight / 2,
                     (!this.active ? ChatFormatting.DARK_GRAY : ChatFormatting.WHITE).getColor()
             );
         }
 
         @Override
         public boolean isMouseOver(double mouseX, double mouseY) {
-            if (UIHelper.isMouseOver(x, y, width, height, mouseX, mouseY, true)) {
+            if (UIHelper.isMouseOver(getX(), getY(), width, height, mouseX, mouseY, true)) {
                 UIHelper.setTooltip(this.tooltip);
                 parent.clearNest();
                 return true;
@@ -185,7 +185,7 @@ public class ContextMenu extends AbstractContainerElement {
         @Override
         public void renderButton(PoseStack stack, int mouseX, int mouseY, float delta) {
             //draw line
-            fill(stack, this.x + 4, y + 4, this.x + this.width - 4, y + 5, 0xFF000000 + ChatFormatting.DARK_GRAY.getColor());
+            fill(stack, this.getX() + 4, getY() + 4, this.getX() + this.width - 4, getY() + 5, 0xFF000000 + ChatFormatting.DARK_GRAY.getColor());
         }
 
         @Override
@@ -219,14 +219,14 @@ public class ContextMenu extends AbstractContainerElement {
             Font font = Minecraft.getInstance().font;
             font.drawShadow(
                     stack, ARROW,
-                    this.x + this.width - font.width(ARROW) - 3, this.y + this.height / 2 - font.lineHeight / 2,
+                    this.getX() + this.width - font.width(ARROW) - 3, this.getY() + this.height / 2 - font.lineHeight / 2,
                     (!this.active ? ChatFormatting.DARK_GRAY : ChatFormatting.WHITE).getColor()
             );
         }
 
         @Override
         public boolean isMouseOver(double mouseX, double mouseY) {
-            if (UIHelper.isMouseOver(x, y, width, height, mouseX, mouseY, true)) {
+            if (UIHelper.isMouseOver(getX(), getY(), width, height, mouseX, mouseY, true)) {
                 UIHelper.setTooltip(this.tooltip);
                 parent.nestedContext = context;
                 return true;

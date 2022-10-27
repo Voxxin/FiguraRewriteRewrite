@@ -56,7 +56,7 @@ public class SwitchButton extends TexturedButton {
         drawCenteredString(
                 stack, Minecraft.getInstance().font,
                 (this.toggled ? getMessage().copy().withStyle(ChatFormatting.UNDERLINE) : getMessage()),
-                this.x + this.width / 2, this.y + this.height / 2 - 4,
+                this.getX() + this.width / 2, this.getY() + this.height / 2 - 4,
                 (!this.active ? ChatFormatting.DARK_GRAY : ChatFormatting.WHITE).getColor()
         );
     }
@@ -66,11 +66,11 @@ public class SwitchButton extends TexturedButton {
         UIHelper.setupTexture(SWITCH_TEXTURE);
 
         //render switch
-        blit(stack, x + 5, y + 5, 20, 10, 10f, (this.toggled ? 20f : 0f) + (this.isHoveredOrFocused() ? 10f : 0f), 20, 10, 30, 40);
+        blit(stack, getX() + 5, getY() + 5, 20, 10, 10f, (this.toggled ? 20f : 0f) + (this.isHoveredOrFocused() ? 10f : 0f), 20, 10, 30, 40);
 
         //render head
         headPos = (float) Mth.lerp(1f - Math.pow(0.2f, delta), headPos, this.toggled ? 20f : 0f);
-        blit(stack, Math.round(x + headPos), y, 10, 20, 0f, this.isHoveredOrFocused() ? 20f : 0f, 10, 20, 30, 40);
+        blit(stack, Math.round(getX() + headPos), getY(), 10, 20, 0f, this.isHoveredOrFocused() ? 20f : 0f, 10, 20, 30, 40);
     }
 
     public boolean isToggled() {

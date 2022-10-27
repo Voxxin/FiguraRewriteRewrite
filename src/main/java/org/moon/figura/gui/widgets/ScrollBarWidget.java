@@ -47,10 +47,10 @@ public class ScrollBarWidget extends AbstractWidget {
             //jump to pos when not clicking on head
             double scrollPos = Mth.lerp(scrollPrecise, 0d, (vertical ? height - headHeight : width - headWidth) + 2d);
 
-            if (vertical && mouseY < y + scrollPos || mouseY > y + scrollPos + headHeight)
-                scroll(-(y + scrollPos + headHeight / 2d - mouseY));
-            else if (!vertical && mouseX < x + scrollPos || mouseX > x + scrollPos + headWidth)
-                scroll(-(x + scrollPos + headWidth / 2d - mouseX));
+            if (vertical && mouseY < getY() + scrollPos || mouseY > getY() + scrollPos + headHeight)
+                scroll(-(getY() + scrollPos + headHeight / 2d - mouseY));
+            else if (!vertical && mouseX < getX() + scrollPos || mouseX > getX() + scrollPos + headWidth)
+                scroll(-(getX() + scrollPos + headWidth / 2d - mouseX));
 
             isScrolling = true;
             playDownSound(Minecraft.getInstance().getSoundManager());
@@ -74,12 +74,12 @@ public class ScrollBarWidget extends AbstractWidget {
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         if (isScrolling) {
             //vertical drag
-            if (vertical && mouseY >= this.y && mouseY <= this.y + this.height) {
+            if (vertical && mouseY >= this.getY() && mouseY <= this.getY() + this.height) {
                 scroll(deltaY);
                 return true;
             }
             //horizontal drag
-            else if (!vertical && mouseX >= this.x && mouseX <= this.x + this.width) {
+            else if (!vertical && mouseX >= this.getX() && mouseX <= this.getX() + this.width) {
                 scroll(deltaX);
                 return true;
             }
@@ -109,7 +109,7 @@ public class ScrollBarWidget extends AbstractWidget {
 
     @Override
     public boolean isMouseOver(double mouseX, double mouseY) {
-        return UIHelper.isMouseOver(x, y, width, height, mouseX, mouseY);
+        return UIHelper.isMouseOver(getX(), getY(), width, height, mouseX, mouseY);
     }
 
     //apply scroll value
@@ -138,13 +138,13 @@ public class ScrollBarWidget extends AbstractWidget {
         UIHelper.setupTexture(SCROLLBAR_TEXTURE);
 
         //render bar
-        blit(stack, x, y, width, 1, 10f, isScrolling ? 20f : 0f, 10, 1, 20, 40);
-        blit(stack, x, y + 1, width, height - 2, 10f, isScrolling ? 21f : 1f, 10, 18, 20, 40);
-        blit(stack, x, y + height - 1, width, 1, 10f, isScrolling ? 39f : 19f, 10, 1, 20, 40);
+        blit(stack, getX(), getY(), width, 1, 10f, isScrolling ? 20f : 0f, 10, 1, 20, 40);
+        blit(stack, getX(), getY() + 1, width, height - 2, 10f, isScrolling ? 21f : 1f, 10, 18, 20, 40);
+        blit(stack, getX(), getY() + height - 1, width, 1, 10f, isScrolling ? 39f : 19f, 10, 1, 20, 40);
 
         //render head
         lerpPos(delta);
-        blit(stack, x, (int) (y + Math.round(Mth.lerp(scrollPos, 0, height - headHeight))), 0f, isHoveredOrFocused() || isScrolling ? headHeight : 0f, headWidth, headHeight, 20, 40);
+        blit(stack, getX(), (int) (getY() + Math.round(Mth.lerp(scrollPos, 0, height - headHeight))), 0f, isHoveredOrFocused() || isScrolling ? headHeight : 0f, headWidth, headHeight, 20, 40);
     }
 
     @Override

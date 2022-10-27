@@ -108,11 +108,11 @@ public class NetworkManager {
                 InetSocketAddress inetSocketAddress = new InetSocketAddress(authServer.getHost(), authServer.getPort());
                 Connection connection = Connection.connectToServer(inetSocketAddress, minecraft.options.useNativeTransport());
 
-                connection.setListener(new ClientHandshakePacketListenerImpl(connection, minecraft, null, (text) -> FiguraMod.LOGGER.info(text.getString())) {
+                connection.setListener(new ClientHandshakePacketListenerImpl(connection, minecraft, null, null, (text) -> FiguraMod.LOGGER.info(text.getString())) {
                     @Override
                     public void handleGameProfile(ClientboundGameProfilePacket clientboundGameProfilePacket) {
                         super.handleGameProfile(clientboundGameProfilePacket);
-                        connection.setListener(new ClientPacketListener(minecraft, null, connection, clientboundGameProfilePacket.getGameProfile(), telemetryManager) {
+                        connection.setListener(new ClientPacketListener(minecraft, null, connection, null, clientboundGameProfilePacket.getGameProfile(), telemetryManager) {
                             @Override
                             public void onDisconnect(Component reason) {
                                 telemetryManager.onDisconnect();
@@ -151,7 +151,7 @@ public class NetworkManager {
                 });
 
                 connection.send(new ClientIntentionPacket(inetSocketAddress.getHostName(), inetSocketAddress.getPort(), ConnectionProtocol.LOGIN));
-                connection.send(new ServerboundHelloPacket(minecraft.getUser().getName(), minecraft.getProfileKeyPairManager().preparePublicKey().join(), Optional.ofNullable(minecraft.getUser().getProfileId())));
+                connection.send(new ServerboundHelloPacket(minecraft.getUser().getName(), Optional.ofNullable(minecraft.getUser().getProfileId())));
 
                 authConnection = connection;
             } catch (Exception e) {

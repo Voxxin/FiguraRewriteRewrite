@@ -1,7 +1,7 @@
 package org.moon.figura.mixin.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -52,7 +52,7 @@ public abstract class GameRendererMixin implements GameRendererAccessor {
         if (offset != null)
             z += (float) offset.z;
 
-        matrix.mulPose(Vector3f.ZP.rotationDegrees(z));
+        matrix.mulPose(Axis.ZP.rotationDegrees(z));
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;doEntityOutline()V", shift = At.Shift.AFTER))

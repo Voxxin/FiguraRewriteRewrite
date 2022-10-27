@@ -138,10 +138,12 @@ public final class ConfigManager {
 
     //returns true if modmenu shifts other buttons on the game menu screen
     public static boolean modmenuShift() {
+        /*
         if (FabricLoader.getInstance().isModLoaded("modmenu")) {
             String buttonStyle = com.terraformersmc.modmenu.config.ModMenuConfig.MODS_BUTTON_STYLE.getValue().toString();
             return !buttonStyle.equals("SHRINK") && !buttonStyle.equals("ICON");
         }
+         */
 
         return false;
     }

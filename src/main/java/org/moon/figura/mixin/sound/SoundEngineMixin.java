@@ -9,7 +9,7 @@ import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceProvider;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +41,7 @@ public abstract class SoundEngineMixin implements SoundEngineAccessor {
     private final HashMap<ChannelAccess.ChannelHandle, Float> figuraHandlers = new HashMap<>();
 
     @Inject(at = @At("RETURN"), method = "<init>")
-    private void soundEngineInit(SoundManager soundManager, Options options, ResourceManager resourceManager, CallbackInfo ci) {
+    private void soundEngineInit(SoundManager soundManager, Options options, ResourceProvider resourceProvider, CallbackInfo ci) {
         figuraChannel = new ChannelAccess(this.library, this.executor);
     }
 

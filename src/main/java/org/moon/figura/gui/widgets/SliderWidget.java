@@ -89,18 +89,18 @@ public class SliderWidget extends ScrollBarWidget {
         UIHelper.setupTexture(SLIDER_TEXTURE);
 
         //draw bar
-        blit(stack, x, y + 3, width, 5, isScrolling ? 10f : 0f, 0f, 5, 5, 33, 16);
+        blit(stack, getX(), getY() + 3, width, 5, isScrolling ? 10f : 0f, 0f, 5, 5, 33, 16);
 
         //draw steps
         if (showSteps) {
             for (int i = 0; i < max; i++) {
-                blit(stack, (int) Math.floor(x + 3 + stepSize * i * (width - 11)), y + 3, 5, 5, isScrolling ? 15f : 5f, 0f, 5, 5, 33, 16);
+                blit(stack, (int) Math.floor(getX() + 3 + stepSize * i * (width - 11)), getY() + 3, 5, 5, isScrolling ? 15f : 5f, 0f, 5, 5, 33, 16);
             }
         }
 
         //draw header
         lerpPos(delta);
-        blit(stack, (int) (x + Math.round(Mth.lerp(scrollPos, 0, width - headWidth))), y, active ? (isHoveredOrFocused() || isScrolling ? headWidth * 2 : headWidth) : 0f, 5f, headWidth, headHeight, 33, 16);
+        blit(stack, (int) (getX() + Math.round(Mth.lerp(scrollPos, 0, width - headWidth))), getY(), active ? (isHoveredOrFocused() || isScrolling ? headWidth * 2 : headWidth) : 0f, 5f, headWidth, headHeight, 33, 16);
     }
 
     // -- getters and setters -- //
